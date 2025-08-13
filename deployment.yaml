@@ -5,7 +5,7 @@ metadata:
   labels:
     app: java-app
 spec:
-  replicas: 2 # سنقوم بتشغيل نسختين من التطبيق لضمان التوافرية
+  replicas: 2 # هنشغل نسختين من التطبيق عشان لو نسخة وقعت، التانية تفضل شغالة
   selector:
     matchLabels:
       app: java-app
@@ -16,9 +16,10 @@ spec:
     spec:
       containers:
       - name: java-app
-        image: your-dockerhub-username/java-app:latest # <-- **مهم جداً:** قم بتغيير هذا لاسم المستخدم الخاص بك على Docker Hub
+        # **مهم جداً:** غير السطر ده لاسم المستخدم بتاعك على Docker Hub
+        image: zizoo1566/java-app:latest
         ports:
-        - containerPort: 8090 # هذا هو البورت الذي يعمل عليه التطبيق كما في ملف application.properties
+        - containerPort: 8090 # البورت اللي التطبيق بيسمع عليه جوه الكونتينر
         resources:
           requests:
             memory: "256Mi"
