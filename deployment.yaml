@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-app-deployment
+  labels:
+    app: java-app
+spec:
+  replicas: 2 # سنقوم بتشغيل نسختين من التطبيق لضمان التوافرية
+  selector:
+    matchLabels:
+      app: java-app
+  template:
+    metadata:
+      labels:
+        app: java-app
+    spec:
+      containers:
+      - name: java-app
+        image: your-dockerhub-username/java-app:latest # <-- **مهم جداً:** قم بتغيير هذا لاسم المستخدم الخاص بك على Docker Hub
+        ports:
+        - containerPort: 8090 # هذا هو البورت الذي يعمل عليه التطبيق كما في ملف application.properties
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
