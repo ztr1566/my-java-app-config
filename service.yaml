@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-app-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path:   /actuator/prometheus
+    prometheus.io/port:   '8090'
+spec:
+  selector:
+    app: java-app # يختار الـ Pods التي أنشأناها في ملف الـ deployment
+  type: NodePort # يجعل التطبيق متاحاً على بورت معين على كل أجهزة الـ Cluster
+  ports:
+  - name: http # اسم البورت، كما هو موصى به في التعليمات
+    protocol: TCP
+    port: 8090 # البورت الداخلي للخدمة
+    targetPort: 8090 # البورت الذي يستمع إليه التطبيق داخل الـ container
