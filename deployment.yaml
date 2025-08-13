@@ -17,7 +17,7 @@ spec:
       containers:
       - name: java-app
         # **مهم جداً:** غير السطر ده لاسم المستخدم بتاعك على Docker Hub
-        image: zizoo1566/java-app:latest
+        image: zizoo1566/java-app:build-1
         ports:
         - containerPort: 8090 # البورت اللي التطبيق بيسمع عليه جوه الكونتينر
         resources:
