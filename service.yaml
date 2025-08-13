@@ -3,15 +3,18 @@ kind: Service
 metadata:
   name: java-app-service
   annotations:
+    # السطور دي هدية لـ Prometheus عشان يعرف يجمع بيانات التطبيق تلقائياً
     prometheus.io/scrape: 'true'
     prometheus.io/path:   /actuator/prometheus
     prometheus.io/port:   '8090'
 spec:
+  # هذا الاختيار يربط هذه الخدمة مع الـ Pods التي تحمل نفس الـ label
   selector:
-    app: java-app # يختار الـ Pods التي أنشأناها في ملف الـ deployment
-  type: NodePort # يجعل التطبيق متاحاً على بورت معين على كل أجهزة الـ Cluster
+    app: java-app
+  # نوع الخدمة NodePort يجعلها متاحة على بورت معين في كل الـ Nodes
+  type: NodePort
   ports:
   - name: http # اسم البورت، كما هو موصى به في التعليمات
     protocol: TCP
     port: 8090 # البورت الداخلي للخدمة
-    targetPort: 8090 # البورت الذي يستمع إليه التطبيق داخل الـ container
+    targetPort: 8090 # البورت الذي يستمع إليه التطبيق نفسه
